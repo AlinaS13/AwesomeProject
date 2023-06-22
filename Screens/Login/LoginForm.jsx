@@ -15,6 +15,8 @@ import {
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [displayText, setDisplaytext] = useState("Показати");
+  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusPassword, setFocusPassword] = useState(false);
   useEffect(() => {
     setDisplaytext(showPassword ? "Показати" : "Приховати");
   }, [displayText, showPassword]);
@@ -26,12 +28,22 @@ export const LoginForm = () => {
     <Formik>
       <View style={styles.form}>
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            focusEmail ? styles.inputOnFocus : styles.inputOnBlur,
+          ]}
+          onFocus={() => setFocusEmail(true)}
+          onBlur={() => setFocusEmail(false)}
           placeholder="Адреса електронної пошти"
         ></TextInput>
         <View style={styles.password_wrp}>
           <TextInput
-            style={styles.input}
+            style={[
+              styles.input,
+              focusPassword ? styles.inputOnFocus : styles.inputOnBlur,
+            ]}
+            onFocus={() => setFocusPassword(true)}
+            onBlur={() => setFocusPassword(false)}
             placeholder="Пароль"
             secureTextEntry={showPassword}
             //   onChangeText={handleChange("password")}
@@ -93,4 +105,6 @@ const styles = StyleSheet.create({
     right: 60,
     transform: [{ translateX: 50 }, { translateY: 17 }],
   },
+  inputOnFocus: { borderColor: "#FF6C00" },
+  inputOnBlur: { borderColor: "#e8e8e8" },
 });
