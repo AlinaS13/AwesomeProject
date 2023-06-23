@@ -2,12 +2,12 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+
 import { useFonts } from "expo-font";
 import { RegistrationScreen } from "./Screens/Registration/RegistrationScreen";
 import { LoginScreen } from "./Screens/Login/LoginScreen";
 import { HomeScreen } from "./Screens/Home/HomeScreen";
-import { Button } from "react-native-web";
+
 const MainStack = createStackNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,28 +16,25 @@ export default function App() {
   return (
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="Login">
-        <MainStack.Screen name="Registration" component={RegistrationScreen} />
-        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen
+          name="Registration"
+          component={RegistrationScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <MainStack.Screen
           name="Home"
           component={HomeScreen}
           options={{
-            title: "Home screen",
-            // headerStyle: {
-            //   backgroundColor: "#f4511e",
-            // },
-            // headerTintColor: "#fff",
-            // headerTitleStyle: {
-            //   fontWeight: "bold",
-            //   fontSize: 20,
-            // },
-            // headerRight: () => (
-            //   <Button
-            //     onPress={() => alert("This is a button!")}
-            //     title="Press me"
-            //     color="#fff"
-            //   />
-            // ),
+            headerShown: false,
           }}
         />
       </MainStack.Navigator>
@@ -45,9 +42,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  containerr: {
-    flex: 1,
-  },
-});
