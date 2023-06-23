@@ -9,6 +9,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
+  Platform,
 } from "react-native";
 import AddSvg from "../../assets/svg/AddSvg";
 import { useFonts } from "expo-font";
