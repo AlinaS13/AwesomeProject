@@ -4,13 +4,13 @@ import {
   Text,
   TextInput,
   View,
-  Button,
   ImageBackground,
   TouchableWithoutFeedback,
   TouchableOpacity,
   Keyboard,
   StyleSheet,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(true);
@@ -18,6 +18,8 @@ export const RegistrationForm = () => {
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
   const [displayText, setDisplaytext] = useState("Показати");
+  const navigation = useNavigation();
+
   useEffect(() => {
     setDisplaytext(showPassword ? "Показати" : "Приховати");
   }, [displayText, showPassword]);
@@ -25,54 +27,67 @@ export const RegistrationForm = () => {
   const handleTogglePassword = (event) => {
     setShowPassword(!showPassword);
   };
+  const handleFormSubmit = (values, { resetForm }) => {
+    console.log(values);
+    navigation.navigate("Home");
+    resetForm();
+  };
+  const initialValues = { avatar: "", login: "", email: "", password: "" };
   return (
-    <Formik>
-      <View style={styles.form}>
-        <TextInput
-          style={[
-            styles.input,
-            focusName ? styles.inputOnFocus : styles.inputOnBlur,
-          ]}
-          onFocus={() => setFocusName(true)}
-          onBlur={() => setFocusName(false)}
-          name="login"
-          placeholder="Логін"
-        ></TextInput>
-        <TextInput
-          name="email"
-          style={[
-            styles.input,
-            focusEmail ? styles.inputOnFocus : styles.inputOnBlur,
-          ]}
-          onFocus={() => setFocusEmail(true)}
-          onBlur={() => setFocusEmail(false)}
-          placeholder="Адреса електронної пошти"
-        ></TextInput>
-        <View style={styles.password_wrp}>
+    <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
+      {({ handleChange, handleSubmit, values }) => (
+        <View style={styles.form}>
           <TextInput
-            name="password"
             style={[
               styles.input,
-              focusPassword ? styles.inputOnFocus : styles.inputOnBlur,
+              focusName ? styles.inputOnFocus : styles.inputOnBlur,
             ]}
-            onFocus={() => setFocusPassword(true)}
-            onBlur={() => setFocusPassword(false)}
-            placeholder="Пароль"
-            secureTextEntry={showPassword}
-            //   onChangeText={handleChange("password")}
-            //   value={values.password}
+            onFocus={() => setFocusName(true)}
+            onBlur={() => setFocusName(false)}
+            placeholder="Логін"
+            onChangeText={handleChange("login")}
+            value={values.login}
           ></TextInput>
+          <TextInput
+            style={[
+              styles.input,
+              focusEmail ? styles.inputOnFocus : styles.inputOnBlur,
+            ]}
+            onFocus={() => setFocusEmail(true)}
+            onBlur={() => setFocusEmail(false)}
+            placeholder="Адреса електронної пошти"
+            onChangeText={handleChange("email")}
+            value={values.email}
+          ></TextInput>
+          <View style={styles.password_wrp}>
+            <TextInput
+              name="password"
+              style={[
+                styles.input,
+                focusPassword ? styles.inputOnFocus : styles.inputOnBlur,
+              ]}
+              onFocus={() => setFocusPassword(true)}
+              onBlur={() => setFocusPassword(false)}
+              placeholder="Пароль"
+              secureTextEntry={showPassword}
+              onChangeText={handleChange("password")}
+              value={values.password}
+            ></TextInput>
+            <TouchableOpacity
+              style={styles.password_show}
+              onPress={handleTogglePassword}
+            >
+              <Text style={styles.display_text}>{displayText}</Text>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
-            style={styles.password_show}
-            onPress={handleTogglePassword}
+            style={styles.button_registration}
+            onPress={handleSubmit}
           >
-            <Text>{displayText}</Text>
+            <Text style={styles.button_title}> Зареєстуватися</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.button_title}> Зареєстуватися</Text>
-        </TouchableOpacity>
-      </View>
+      )}
     </Formik>
   );
 };
@@ -96,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     backgroundColor: "#F6F6F6",
   },
-  button: {
+  button_registration: {
     marginTop: 43,
     backgroundColor: "#FF6C00",
     paddingTop: 16,
@@ -119,4 +134,8 @@ const styles = StyleSheet.create({
   },
   inputOnFocus: { borderColor: "#FF6C00" },
   inputOnBlur: { borderColor: "#e8e8e8" },
+  display_text: {
+    color: "#1B4371",
+    fontSize: 16,
+  },
 });
