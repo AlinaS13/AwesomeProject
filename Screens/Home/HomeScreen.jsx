@@ -93,8 +93,7 @@ export const HomeScreen = () => {
         component={CreatePostsScreen}
         options={{
           title: "Створити публікацію",
-          //   tabBarStyle: { display: "none" },
-          //   nameShown: false,
+          tabBarStyle: { display: "none" },
         }}
       />
       <Tabs.Screen

@@ -2,8 +2,8 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
-
 import { useFonts } from "expo-font";
+
 import { RegistrationScreen } from "./Screens/Registration/RegistrationScreen";
 import { LoginScreen } from "./Screens/Login/LoginScreen";
 import { HomeScreen } from "./Screens/Home/HomeScreen";
@@ -11,7 +11,9 @@ import { HomeScreen } from "./Screens/Home/HomeScreen";
 const MainStack = createStackNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Roboto: require("./assets/fonts/Roboto-Regular.ttf"),
+    RobotoRegular: require("./assets/fonts/Roboto-Regular.ttf"),
+    RobotoMedium: require("./assets/fonts/Roboto-Medium.ttf"),
+    RobotoBold: require("./assets/fonts/Roboto-Bold.ttf"),
   });
   return (
     <NavigationContainer>
