@@ -27,8 +27,6 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-const API_KEY = "AIzaSyBcSosZ1aqeHKosF0Qi038hn8-nnpVkq5E";
-
 export const CreatePostsScreen = () => {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
