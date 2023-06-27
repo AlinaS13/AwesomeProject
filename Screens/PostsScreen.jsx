@@ -4,16 +4,18 @@ import { useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { UserInfo } from "./UserInfo";
+import { getPostsFromFirestore } from "../redux/posts/postsOperations";
 
-export const PostsScreen = () => {
+export const PostsScreen = async () => {
   const navigation = useNavigation();
+  const posts = await getPostsFromFirestore();
+
   return (
     <View style={styles.container}>
       <UserInfo />
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
